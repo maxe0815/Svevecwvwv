@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bestätigungscode Seite</title>
+</head>
+<body>
+    <form id="linkForm">
+        <label for="link">Link:</label>
+        <input type="text" id="link" name="link" value="https://www.duhastdenlinkgeöffnetjuhu.webador.de">
+        <button type="submit">Öffnen</button>
+    </form>
+    
+    <p>Dein Bestätigungscode: <span id="userCode"></span></p>
+    
+    <div id="adminSection" style="display: none;">
+        <label for="adminPassword">Administrator Passwort:</label>
+        <input type="password" id="adminPassword">
+        <button id="adminSubmit" type="button">Bestätigen</button>
+        <p id="adminCode"></p>
+    </div>
+
+    <script>
+        function generateSixDigitCode() {
+            return Math.floor(100000 + Math.random() * 900000);
+        }
+
+        var userCode = null;
+
+        document.getElementById("linkForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var link = document.getElementById("link").value;
+            if (link === "https://www.duhastdenlinkgeöffnetjuhu.webador.de") {
+                userCode = generateSixDigitCode();
+                document.getElementById("userCode").textContent = userCode;
+                document.getElementById("adminSection").style.display = "block";
+            }
+        });
+
+        document.getElementById("adminSubmit").addEventListener("click", function() {
+            var adminPassword = document.getElementById("adminPassword").value;
+            // Überprüfe das Passwort
+            if (adminPassword === "maxe0815_Hi") {
+                if (userCode) {
+                    document.getElementById("adminCode").textContent = "Administrator-Code: " + userCode;
+                } else {
+                    alert("Es wurde noch kein Benutzercode generiert.");
+                }
+            } else {
+                alert("Falsches Passwort!");
+            }
+        });
+    </script>
+</body>
+</html>
